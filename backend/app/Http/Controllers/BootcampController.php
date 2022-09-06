@@ -4,6 +4,11 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Bootcamp;
+use Illuminate\Support\Facades\Validator;
+use App\Http\Requests\StroreBootcampRequest;
+use App\Http\Resources\BootcampResource;
+use App\Http\Resources\BootcampCollection;
+
 
 class BootcampController extends Controller
 {
@@ -15,9 +20,8 @@ class BootcampController extends Controller
     public function index()
     {
        //echo "aquí se va a mostrar  todos los bootcamp";
-       return response()->json(["success"=> true,
-                                "data"=> Bootcamp::all()
-                                ], 200);
+       return response()->json( new BootcampCollection(Bootcamp::all())
+                                , 200);
     }
 
     /**
@@ -26,20 +30,16 @@ class BootcampController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StroreBootcampRequest $request)
     {
+
        //verificar que llegó aquí el payload
        //return $request->all();
        //registrar el bootcamp a partir del payload
 
-       $b = Bootcamp::create([
-        "name" => $request->name,
-        "description" => $request->description,
-        "website" => $request->website,
-        "phone" => $request->phone,
-        "user_id" => $request->user_id
-  
-        ]);
+       $b = Bootcamp::create(
+        $request->all()
+        );
         return response( ["success" => true,
                         "data"=> $b ] , 201);
     }
@@ -75,7 +75,7 @@ class BootcampController extends Controller
         );
         //3. Hacer el Response
         return response()->json( ["success" => true ,
-                                "data" => $bootcamp
+                                "data" => new BootcampResource ($bootcamp)
                                 ] , 200);
     }
 
@@ -93,8 +93,8 @@ class BootcampController extends Controller
        $bootcamp->delete();
        //3. Response:
        return response()->json( ["success" => true,
-                                "message" => "Bootcamp" ,
-                                "data"=> $bootcamp->id ] , 200);
+                                "message" => "Bootcamp",
+                                "data"=>new BootcampResource ($bootcamp)  ] , 200);
        
     }
 }
