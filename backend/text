@@ -23,3 +23,8 @@
 
                                     ] , 422);
         }
+
+
+
+
+        php artisan migrate: este comando sirve para que aprescan los datos en la base de datos 

@@ -6,7 +6,7 @@ use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Http\Exceptions\HttpResponseException;
 
-class StroreBootcampRequest extends FormRequest
+class StoreReviewsRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -15,7 +15,7 @@ class StroreBootcampRequest extends FormRequest
      */
     public function authorize()
     {
-        return true;
+        return false;
     }
 
     /**
@@ -25,18 +25,21 @@ class StroreBootcampRequest extends FormRequest
      */
     public function rules()
     {
-        return [
-            "name" => "required|min:5",
-            "description" => "required",
-            "average_cost"=> "numeric",
-            "user_id" => "exists:users,id",
-        ];
+        {
+            return [
+                "title" => "required|min:5",
+                "rating" => "required",
+                "user_id" => "exists:users,id",
+    
+            ];
+        }
+    
+        /*
+        * enviar respuesta en caso de 
+        * validacion fallida
+        */
+    
     }
-
-    /*
-    * enviar respuesta en caso de 
-    * validacion fallida
-    */
     protected function failedValidation(Validator $v){
         //lanzar una excepcion HttpResponse en caso
         //de errores ded validacion 

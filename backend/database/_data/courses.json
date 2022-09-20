@@ -1,0 +1,16 @@
+[
+    {
+        "tatle":"PHP Advanced mode",
+        "description" : "PHP for senior programmers",
+        "weeks" :7,
+        "enroll_cost" :3000,
+        "minimum_skill" : "begin"
+    },
+    {
+        "tatle":"PHP Advanced mode",
+        "description" : "PHP for senior programmers",
+        "weeks" :7,
+        "enroll_cost" :3000,
+        "minimum_skill" : "hh"
+    }
+]
